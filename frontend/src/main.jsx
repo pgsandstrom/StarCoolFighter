@@ -24,12 +24,10 @@ const Hexagon = (props) => {
   const marginLeft = `${500 + (210 * (props.x * 0.85))}px`;
   const color = props.color;
   return (
-    <div className="container" style={{ marginTop, marginLeft }}>
-      <div className="hexagon">
-        <div className="hexagon-in1">
-          <div className="hexagon-in2" style={{ background: color }} >
-            <Fleet />
-          </div>
+    <div className="hexagon" style={{ marginTop, marginLeft }}>
+      <div className="hexagon-in1">
+        <div className="hexagon-in2" style={{ background: color }} >
+          <Fleet />
         </div>
       </div>
     </div>);
@@ -40,7 +38,7 @@ Hexagon.propTypes = {
   color: PropTypes.string.isRequired,
 };
 
-const Fleet = () => <div>fleet</div>
+const Fleet = () => <div className="fleet">fleet</div>;
 
 
 export default Main;
