@@ -24,10 +24,18 @@
       background: red;
       visibility: visible;
       transform: rotate(-60deg);
+
+      .hexagon-content {
+        position: relative;
+        transform: rotate(90deg);
+      }
     }
   }
 }
 
 .fleet {
-  //margin-left: 10px;
+  position: absolute;
+  margin-left: 140px;
+  margin-top: -50px;
+  //padding-top: 50px;
 }

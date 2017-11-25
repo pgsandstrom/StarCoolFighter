@@ -1,44 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
+import Tile from './tile/tile';
+import { createBoard } from './tile/action';
 
 import './main.scss';
 
-const Main = () =>
-  (<div>
-    <div className="hexagon-holder">
-      <Hexagon x={0} y={0} color="blue" />
-      <Hexagon x={0} y={1} color="blue" />
-      <Hexagon x={0} y={2} color="blue" />
-      <Hexagon x={0} y={3} color="blue" />
-      <Hexagon x={1} y={0} color="green" />
-      <Hexagon x={2} y={0} color="green" />
-      <Hexagon x={3} y={0} color="green" />
-      <Hexagon x={1} y={1} color="red" />
-      <Hexagon x={-1} y={1} color="red" />
-      <Hexagon x={-2} y={1} color="red" />
-    </div>
-  </div>);
+class Main extends React.Component {
+  componentDidMount() {
+    console.log('did mount');
+    this.props.createBoard(3);
+  }
 
-const Hexagon = (props) => {
-  const marginTop = `${500 + (210 * (props.y + (props.x * 0.5)))}px`;
-  const marginLeft = `${500 + (210 * (props.x * 0.85))}px`;
-  const color = props.color;
-  return (
-    <div className="hexagon" style={{ marginTop, marginLeft }}>
-      <div className="hexagon-in1">
-        <div className="hexagon-in2" style={{ background: color }} >
-          <Fleet />
+  render() {
+    return (
+      <div>
+        <div className="hexagon-holder">
+
+          {Object.keys(this.props.tiles).map((x) => {
+            console.log();
+            return Object.keys(this.props.tiles[x]).map((y) => {
+              console.log();
+              // debugger;
+              return <Tile x={Number(x)} y={Number(y)} color="blue" />;
+            },
+            );
+          })}
+
+          {/* {this.props.tiles.map((array, x) => { */}
+          {/* console.log(); */}
+          {/* return array.map((tile, y) => { */}
+          {/* console.log(); */}
+          {/* return <Tile x={x} y={y} color="blue" />; */}
+          {/* }); */}
+          {/* })} */}
+
+          {/* <Tile x={0} y={0} color="blue" /> */}
+          {/* <Tile x={0} y={1} color="blue" /> */}
+          {/* <Tile x={0} y={2} color="blue" /> */}
+          {/* <Tile x={0} y={3} color="blue" /> */}
+          {/* <Tile x={1} y={0} color="green" /> */}
+          {/* <Tile x={2} y={0} color="green" /> */}
+          {/* <Tile x={3} y={0} color="green" /> */}
+          {/* <Tile x={1} y={1} color="red" /> */}
+          {/* <Tile x={-1} y={1} color="red" /> */}
+          {/* <Tile x={-2} y={1} color="red" /> */}
         </div>
       </div>
-    </div>);
+    );
+  }
+}
+Main.propTypes = {
+  tiles: PropTypes.object.isRequired,
+  createBoard: PropTypes.func.isRequired,
 };
-Hexagon.propTypes = {
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
-  color: PropTypes.string.isRequired,
-};
 
-const Fleet = () => <div className="fleet">fleet</div>;
-
-
-export default Main;
+export default connect(state => ({ tiles: state.tileReducer.tiles }), { createBoard })(Main);

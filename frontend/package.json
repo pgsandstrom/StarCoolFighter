@@ -14,9 +14,7 @@
     "type": "git",
     "url": "TODO git path"
   },
-  "keywords": [
-    "long bets"
-  ],
+  "keywords": ["long bets"],
   "author": "Per Sandström",
   "license": "ISC",
   "bugs": {
@@ -35,6 +33,7 @@
     "js-cookie": "^2.2.0",
     "json-stable-stringify": "^1.0.1",
     "node-sass": "^4.6.1",
+    "prettier": "^1.8.2",
     "prop-types": "15.6.0",
     "react": "~16.1.0",
     "react-autosize-textarea": "^0.4.9",

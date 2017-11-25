@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-// import globalReducer from './global/reducer';
+import tileReducer from './tile/reducer';
 
 const rootReducer = combineReducers({
-  // globalReducer,
+  tileReducer,
 });
 
 export default rootReducer;
