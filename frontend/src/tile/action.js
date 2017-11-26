@@ -1,4 +1,15 @@
+import _ from 'lodash';
+
 import { CREATE_BOARD, SET_TILE, SELECT_TILE } from './reducer';
+
+let idGenerator = 1;
+const newId = () => idGenerator++;
+
+const defaultTile = {
+  fleet: [],
+};
+
+const getNewItem = item => ({ ..._.cloneDeep(item), id: newId() });
 
 export const createBoard = (size) => {
   const board = {};
@@ -9,7 +20,10 @@ export const createBoard = (size) => {
         if (board[outer] == null) {
           board[outer] = {};
         }
-        board[outer][inner] = {};
+        board[outer][inner] = getNewItem(defaultTile);
+        if (outer === 1 && inner === 1) {
+          board[outer][inner].fleet.push({});
+        }
       }
     }
   }
@@ -24,13 +38,9 @@ export const setTile = (x, y) => ({
   },
 });
 
-export const selectTile = (x, y) => (dispatch, getState) => {
-  // const selected = getState().tileReducer.tiles[x][y].selected === true;
-  return dispatch({
-    type: SELECT_TILE,
-    payload: {
-      x,
-      y,
-    },
-  });
-};
+export const selectTile = id => ({
+  type: SELECT_TILE,
+  payload: {
+    id,
+  },
+});

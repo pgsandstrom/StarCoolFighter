@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Fleet from './fleet';
+
 import { selectTile } from './action';
 
 import './tile.scss';
@@ -16,14 +18,11 @@ const Tile = (props) => {
     color = props.color;
   }
   return (
-    <div className="hexagon" style={{ marginTop, marginLeft }} onClick={() => props.selectTile(props.x, props.y)}>
+    <div className="hexagon" style={{ marginTop, marginLeft }} onClick={() => props.selectTile(props.id)}>
       <div className="hexagon-in1">
         <div className="hexagon-in2" style={{ background: color }}>
           <div className="hexagon-content">
-            {/* <Fleet /> */}
-            <div className="fleet">
-              {props.x}, {props.y}
-            </div>
+            {props.fleets.map(fleet => <Fleet key={fleet} />)}
           </div>
         </div>
       </div>
@@ -31,14 +30,16 @@ const Tile = (props) => {
   );
 };
 Tile.propTypes = {
+  id: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   color: PropTypes.string.isRequired,
+  fleets: PropTypes.array.isRequired,
   selectTile: PropTypes.func.isRequired,
 };
 
 export default connect((state, ownProps) => ({
-  selected: ownProps.x === state.tileReducer.selectedTile.x && ownProps.y === state.tileReducer.selectedTile.y,
+  selected: ownProps.id === state.tileReducer.selectedTileId,
 }), {
   selectTile,
 })(Tile);

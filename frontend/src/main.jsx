@@ -23,7 +23,8 @@ class Main extends React.Component {
             return Object.keys(this.props.tiles[x]).map((y) => {
               console.log();
               // debugger;
-              return <Tile x={Number(x)} y={Number(y)} color="blue" />;
+              const tile = this.props.tiles[x][y];
+              return <Tile key={`${x} ${y}`} id={tile.id} x={Number(x)} y={Number(y)} fleets={tile.fleet} color="blue" />;
             },
             );
           })}

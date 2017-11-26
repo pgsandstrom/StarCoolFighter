@@ -1,12 +1,12 @@
 import update from 'immutability-helper';
 
 export const CREATE_BOARD = 'tile/CREATE_BOARD';
-export const SET_TILE = 'tile/SET_TILE';
 export const SELECT_TILE = 'tile/SELECT_TILE';
+export const SELECT_FLEET = 'tile/SELECT_FLEET';
 
 const initialState = {
   tiles: {},
-  selectedTile: {},
+  selectedTileId: null,
 };
 
 export default (state = initialState, action) => {
@@ -16,13 +16,14 @@ export default (state = initialState, action) => {
     // case SET_TILE:
     //   return { ...state, tiles: [...state.tiles, ] };
     case SELECT_TILE:
-      return { ...state, selectedTile: action.payload };
+      return { ...state, selectedTileId: action.payload.id };
       // return update(state, {
       //   tiles: {
       //     [action.payload.x]: {
       //       [action.payload.y]: {
       //         selected: {
       //           $set: action.payload.selected } } } } });
+    case SELECT_FLEET:
     default:
       return state;
   }
