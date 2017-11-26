@@ -1,4 +1,4 @@
-import { CREATE_BOARD, SET_TILE } from './reducer';
+import { CREATE_BOARD, SET_TILE, SELECT_TILE } from './reducer';
 
 export const createBoard = (size) => {
   const board = {};
@@ -23,3 +23,14 @@ export const setTile = (x, y) => ({
     y,
   },
 });
+
+export const selectTile = (x, y) => (dispatch, getState) => {
+  // const selected = getState().tileReducer.tiles[x][y].selected === true;
+  return dispatch({
+    type: SELECT_TILE,
+    payload: {
+      x,
+      y,
+    },
+  });
+};
