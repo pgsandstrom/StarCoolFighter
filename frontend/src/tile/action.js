@@ -1,12 +1,17 @@
 import _ from 'lodash';
 
-import { CREATE_BOARD, SET_TILE, SELECT_TILE } from './reducer';
+import { CREATE_BOARD, SET_TILE, SELECT_TILE, SELECT_FLEET, UNSELECT_FLEET } from './reducer';
 
 let idGenerator = 1;
 const newId = () => idGenerator++;
 
 const defaultTile = {
-  fleet: [],
+  x: undefined,
+  y: undefined,
+  fleets: [],
+};
+
+const defaultFleet = {
 };
 
 const getNewItem = item => ({ ..._.cloneDeep(item), id: newId() });
@@ -20,9 +25,9 @@ export const createBoard = (size) => {
         if (board[outer] == null) {
           board[outer] = {};
         }
-        board[outer][inner] = getNewItem(defaultTile);
-        if (outer === 1 && inner === 1) {
-          board[outer][inner].fleet.push({});
+        board[outer][inner] = getNewItem({ ...defaultTile, x: outer, y: inner });
+        if ((outer === 1 && inner === 1) || (outer === -1 && inner === -1)) {
+          board[outer][inner].fleets.push(getNewItem(defaultFleet));
         }
       }
     }
@@ -40,6 +45,20 @@ export const setTile = (x, y) => ({
 
 export const selectTile = id => ({
   type: SELECT_TILE,
+  payload: {
+    id,
+  },
+});
+
+export const selectFleet = id => ({
+  type: SELECT_FLEET,
+  payload: {
+    id,
+  },
+});
+
+export const unselectFleet = id => ({
+  type: UNSELECT_FLEET,
   payload: {
     id,
   },

@@ -9,7 +9,6 @@ import './main.scss';
 
 class Main extends React.Component {
   componentDidMount() {
-    console.log('did mount');
     this.props.createBoard(3);
   }
 
@@ -24,7 +23,7 @@ class Main extends React.Component {
               console.log();
               // debugger;
               const tile = this.props.tiles[x][y];
-              return <Tile key={`${x} ${y}`} id={tile.id} x={Number(x)} y={Number(y)} fleets={tile.fleet} color="blue" />;
+              return <Tile key={tile.id} id={tile.id} x={Number(x)} y={Number(y)} fleets={tile.fleets} color="blue" />;
             },
             );
           })}

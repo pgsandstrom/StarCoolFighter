@@ -3,10 +3,12 @@ import update from 'immutability-helper';
 export const CREATE_BOARD = 'tile/CREATE_BOARD';
 export const SELECT_TILE = 'tile/SELECT_TILE';
 export const SELECT_FLEET = 'tile/SELECT_FLEET';
+export const UNSELECT_FLEET = 'tile/UNSELECT_FLEET';
 
 const initialState = {
   tiles: {},
   selectedTileId: null,
+  selectedFleetsId: {},
 };
 
 export default (state = initialState, action) => {
@@ -24,6 +26,24 @@ export default (state = initialState, action) => {
       //         selected: {
       //           $set: action.payload.selected } } } } });
     case SELECT_FLEET:
+      return update(state, {
+        // selectedTileId: {
+        //   $set: null,
+        // },
+        selectedFleetsId: {
+          [action.payload.id]: {
+            $set: true,
+          },
+        },
+      });
+    case UNSELECT_FLEET:
+      return update(state, {
+        selectedFleetsId: {
+          [action.payload.id]: {
+            $set: false,
+          },
+        },
+      });
     default:
       return state;
   }
