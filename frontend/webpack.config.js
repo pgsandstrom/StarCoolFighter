@@ -4,7 +4,6 @@ const path = require('path');
 module.exports = {
   // devtool: 'source-map',
   entry: [
-    'babel-polyfill', // babel-polyfill needs to be first, or IE11 might give problem in dev mode
     'webpack-dev-server/client?http://0.0.0.0:8080', // WebpackDevServer host and port
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     'react-hot-loader/patch',
@@ -19,7 +18,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['airbnb'],
+            presets: ['@babel/preset-env'],
           },
         },
       },
