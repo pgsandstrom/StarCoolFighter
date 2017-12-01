@@ -8,6 +8,7 @@ export const UNSELECT_FLEET = 'tile/UNSELECT_FLEET';
 const initialState = {
   tiles: {},
   selectedTileId: null,
+  fleets: [],
   selectedFleetsId: {},
 };
 

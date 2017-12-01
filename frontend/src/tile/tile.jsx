@@ -26,9 +26,9 @@ const Tile = (props) => {
         <div className="hexagon-in2" style={{ background: color }}>
           <div className="hexagon-content">
             {props.fleets.map(fleet => <Fleet key={fleet.id} id={fleet.id} />)}
-            {/*<div className="fleet">*/}
-              {/*{props.x}.{props.y}*/}
-            {/*</div>*/}
+            {/* <div className="fleet"> */}
+            {/* {props.x}.{props.y} */}
+            {/* </div> */}
           </div>
         </div>
       </div>

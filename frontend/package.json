@@ -6,7 +6,7 @@
   "directories": {},
   "scripts": {
     "test": "mocha --compilers scss:./test/null-compiler test/.setup.js test/**/*-test.js*",
-    "lint": "./node_modules/eslint/bin/eslint.js --ext .js --ext .jsx src",
+    "lint": "node ./node_modules/eslint/bin/eslint.js --ext .js --ext .jsx src",
     "dev": "webpack-dev-server",
     "prod": "webpack --config webpack.config.production.js"
   },
@@ -59,10 +59,10 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "chai": "^4.1.2",
     "enzyme": "^3.1.1",
-    "eslint": "^4.7.2",
-    "eslint-config-airbnb": "^15.1.0",
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
     "mocha": "^4.0.1",
     "react-addons-test-utils": "^15.6.2",
