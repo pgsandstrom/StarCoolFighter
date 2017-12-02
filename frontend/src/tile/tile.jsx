@@ -5,27 +5,28 @@ import { connect } from 'react-redux';
 import Fleet from './fleet';
 
 import { selectTile } from './action';
-import { isTileReachable } from './selector';
+import { isTileReachable, getFleetsForTile } from './selector';
 
 import './tile.scss';
 
 const Tile = (props) => {
-  const marginTop = `${500 + 210 * (props.y + props.x * 0.5)}px`;
-  const marginLeft = `${700 + 210 * (props.x * 0.85)}px`;
+  const { tile, reachable, selected, fleets } = props;
+  const marginTop = `${500 + 210 * (tile.y + tile.x * 0.5)}px`;
+  const marginLeft = `${700 + 210 * (tile.x * 0.85)}px`;
   let color;
-  if (props.reachable) {
+  if (reachable) {
     color = 'purple';
-  } else if (props.selected) {
+  } else if (selected) {
     color = 'red';
   } else {
     color = props.color;
   }
   return (
-    <div className="hexagon" style={{ marginTop, marginLeft }} onClick={() => props.selectTile(props.id)}>
+    <div className="hexagon" style={{ marginTop, marginLeft }} onClick={() => props.selectTile(tile.id)}>
       <div className="hexagon-in1">
         <div className="hexagon-in2" style={{ background: color }}>
           <div className="hexagon-content">
-            {props.fleets.map(fleet => <Fleet key={fleet.id} id={fleet.id} />)}
+            {fleets.map(fleet => <Fleet key={fleet.id} id={fleet.id} />)}
             {/* <div className="fleet"> */}
             {/* {props.x}.{props.y} */}
             {/* </div> */}
@@ -36,9 +37,7 @@ const Tile = (props) => {
   );
 };
 Tile.propTypes = {
-  id: PropTypes.number.isRequired,
-  x: PropTypes.number.isRequired,
-  y: PropTypes.number.isRequired,
+  tile: PropTypes.object.isRequired,
   color: PropTypes.string.isRequired,
   fleets: PropTypes.array.isRequired,
   selected: PropTypes.bool.isRequired,
@@ -48,7 +47,8 @@ Tile.propTypes = {
 
 export default connect((state, ownProps) => ({
   selected: ownProps.id === state.tileReducer.selectedTileId,
-  reachable: isTileReachable(state, ownProps.id),
+  reachable: isTileReachable(state, ownProps.tile.id),
+  fleets: getFleetsForTile(state, ownProps.tile),
 }), {
   selectTile,
 })(Tile);

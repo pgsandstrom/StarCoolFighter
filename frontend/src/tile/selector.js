@@ -8,15 +8,18 @@ const getTiles = (state) => {
 // TODO jesus this is so ineffective... perhaps selector with large cache?
 const getTile = (state, tileId) => getTiles(state).find(tile => tile.id === tileId);
 
-const getFleets = (state) => {
-  const fleets = getTiles(state).map(tile => tile.fleets.map(fleet => ({ ...fleet, x: tile.x, y: tile.y })));
-  return _.flatten(fleets);
+const getFleets = state => state.tileReducer.fleets;
+
+const getSelectedFleets = state => {
+
+  debugger;
+  const result = Object.keys(state.tileReducer.selectedFleetsId)
+    .map(key => state.tileReducer.fleets.find(fleet => fleet.id === key))
+    .map(key => Number(key));
+  return result;
 };
 
-const getSelectedFleets = state =>
-  Object.keys(state.tileReducer.selectedFleetsId)
-    .filter(key => state.tileReducer.selectedFleetsId[key])
-    .map(key => Number(key));
+export const getFleetsForTile = (state, tile) => state.tileReducer.fleets.filter(fleet => fleet.x === tile.x && fleet.y === tile.y);
 
 const canFleetReachTile = (fleet, tile) => {
   const xDiff = fleet.x - tile.x;

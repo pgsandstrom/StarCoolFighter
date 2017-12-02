@@ -4,6 +4,7 @@ export const CREATE_BOARD = 'tile/CREATE_BOARD';
 export const SELECT_TILE = 'tile/SELECT_TILE';
 export const SELECT_FLEET = 'tile/SELECT_FLEET';
 export const UNSELECT_FLEET = 'tile/UNSELECT_FLEET';
+export const CREATE_FLEET = 'tile/CREATE_FLEET';
 
 const initialState = {
   tiles: {},
@@ -45,6 +46,8 @@ export default (state = initialState, action) => {
           },
         },
       });
+    case CREATE_FLEET:
+      return { ...state, fleets: [...state.fleets, action.payload.fleet] };
     default:
       return state;
   }
