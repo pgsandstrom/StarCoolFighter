@@ -16,43 +16,14 @@ class Main extends React.Component {
     return (
       <div>
         <div className="hexagon-holder">
-
-          {Object.keys(this.props.tiles).map((x) => {
-            console.log();
-            return Object.keys(this.props.tiles[x]).map((y) => {
-              console.log();
-              // debugger;
-              const tile = this.props.tiles[x][y];
-              return <Tile key={tile.id} tile={tile} color="blue" />;
-            },
-            );
-          })}
-
-          {/* {this.props.tiles.map((array, x) => { */}
-          {/* console.log(); */}
-          {/* return array.map((tile, y) => { */}
-          {/* console.log(); */}
-          {/* return <Tile x={x} y={y} color="blue" />; */}
-          {/* }); */}
-          {/* })} */}
-
-          {/* <Tile x={0} y={0} color="blue" /> */}
-          {/* <Tile x={0} y={1} color="blue" /> */}
-          {/* <Tile x={0} y={2} color="blue" /> */}
-          {/* <Tile x={0} y={3} color="blue" /> */}
-          {/* <Tile x={1} y={0} color="green" /> */}
-          {/* <Tile x={2} y={0} color="green" /> */}
-          {/* <Tile x={3} y={0} color="green" /> */}
-          {/* <Tile x={1} y={1} color="red" /> */}
-          {/* <Tile x={-1} y={1} color="red" /> */}
-          {/* <Tile x={-2} y={1} color="red" /> */}
+          {this.props.tiles.map(tile => <Tile key={tile.id} tile={tile} color="blue" />)}
         </div>
       </div>
     );
   }
 }
 Main.propTypes = {
-  tiles: PropTypes.object.isRequired,
+  tiles: PropTypes.array.isRequired,
   createBoard: PropTypes.func.isRequired,
 };
 

@@ -1,25 +1,19 @@
 import _ from 'lodash';
 
-const getTiles = (state) => {
-  const tiles = Object.values(state.tileReducer.tiles).map(tileRow => Object.values(tileRow));
-  return _.flatten(tiles);
-};
+const getTiles = state => state.tileReducer.tiles;
 
 // TODO jesus this is so ineffective... perhaps selector with large cache?
 const getTile = (state, tileId) => getTiles(state).find(tile => tile.id === tileId);
 
 const getFleets = state => state.tileReducer.fleets;
 
-const getSelectedFleets = state => {
+const getSelectedFleets = state =>
+  Object.keys(state.tileReducer.selectedFleetsId)
+    .filter(key => state.tileReducer.selectedFleetsId[key])
+    .map(key => state.tileReducer.fleets.find(fleet => fleet.id === Number(key)));
 
-  debugger;
-  const result = Object.keys(state.tileReducer.selectedFleetsId)
-    .map(key => state.tileReducer.fleets.find(fleet => fleet.id === key))
-    .map(key => Number(key));
-  return result;
-};
-
-export const getFleetsForTile = (state, tile) => state.tileReducer.fleets.filter(fleet => fleet.x === tile.x && fleet.y === tile.y);
+export const getFleetsForTile = (state, tile) =>
+  state.tileReducer.fleets.filter(fleet => fleet.x === tile.x && fleet.y === tile.y);
 
 const canFleetReachTile = (fleet, tile) => {
   const xDiff = fleet.x - tile.x;
@@ -38,19 +32,20 @@ const canFleetReachTile = (fleet, tile) => {
 };
 
 export const isTileReachable = (state, tileId) => {
-  // debugger;
   const selectedFleetsId = getSelectedFleets(state);
+  const tile = getTile(state, tileId);
   if (selectedFleetsId.length === 0) {
     return false;
   }
-  const fleets = getFleets(state);
-  return fleets.every((fleet) => {
-    if (selectedFleetsId.includes(fleet.id) === false) {
-      return true;
-    } else {
-      const tile = getTile(state, tileId);
-      // debugger;
-      return canFleetReachTile(fleet, tile);
-    }
-  });
+
+  return selectedFleetsId.every(selectedFleet => canFleetReachTile(selectedFleet, tile));
+  // const fleets = getFleets(state);
+  // return fleets.every((fleet) => {
+  //   if (selectedFleetsId.includes(fleet.id) === false) {
+  //     return true;
+  //   } else {
+  //     const tile = getTile(state, tileId);
+  //     return canFleetReachTile(fleet, tile);
+  //   }
+  // });
 };

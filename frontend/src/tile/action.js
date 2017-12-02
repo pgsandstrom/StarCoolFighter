@@ -11,20 +11,22 @@ const defaultTile = {
 };
 
 const defaultFleet = {
+  x: undefined,
+  y: undefined,
 };
 
 const getNewItem = item => ({ ..._.cloneDeep(item), id: newId() });
 
 export const createBoard = (size) => (dispatch, getState) => {
-  const board = {};
+  const tiles = [];
   for (let outer = -size; outer <= size; outer++) {
     for (let inner = -size; inner <= size; inner++) {
       const combined = outer + inner;
       if (-size <= combined && combined <= size) {
-        if (board[outer] == null) {
-          board[outer] = {};
+        if (tiles[outer] == null) {
+          tiles[outer] = {};
         }
-        board[outer][inner] = getNewItem({ ...defaultTile, x: outer, y: inner });
+        tiles.push(getNewItem({ ...defaultTile, x: outer, y: inner }));
       }
     }
   }
@@ -32,14 +34,11 @@ export const createBoard = (size) => (dispatch, getState) => {
   dispatch({
     type: CREATE_FLEET,
     payload: {
-      fleet: {
-        x: 1,
-        y: 1,
-      },
+      fleet: getNewItem({ ...defaultFleet, x: 1, y: 1 }),
     },
   });
 
-  return dispatch({ type: CREATE_BOARD, payload: board });
+  return dispatch({ type: CREATE_BOARD, payload: tiles });
 };
 
 export const setTile = (x, y) => ({

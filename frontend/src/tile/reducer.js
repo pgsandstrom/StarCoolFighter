@@ -7,7 +7,7 @@ export const UNSELECT_FLEET = 'tile/UNSELECT_FLEET';
 export const CREATE_FLEET = 'tile/CREATE_FLEET';
 
 const initialState = {
-  tiles: {},
+  tiles: [],
   selectedTileId: null,
   fleets: [],
   selectedFleetsId: {},
