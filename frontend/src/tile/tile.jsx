@@ -46,7 +46,7 @@ Tile.propTypes = {
 };
 
 export default connect((state, ownProps) => ({
-  selected: ownProps.id === state.tileReducer.selectedTileId,
+  selected: ownProps.tile.id === state.tileReducer.selectedTileId,
   reachable: isTileReachable(state, ownProps.tile.id),
   fleets: getFleetsForTile(state, ownProps.tile),
 }), {

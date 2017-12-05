@@ -26,6 +26,10 @@ module.exports = {
     }, {
       "enforceForRenamedProperties": false
     }],
+    "object-curly-newline": ["error", { // Consistency is enough, other rules becomes cumbersome
+      "ObjectExpression": { "consistent": true },
+      "ObjectPattern": { "consistent": true }
+    }],
 
     // This stuff is usually smart, but turned off for this project:
     "jsx-a11y/click-events-have-key-events": ["off"],
