@@ -1,7 +1,21 @@
 import _ from 'lodash';
 
-import { CREATE_BOARD, SET_TILE, SELECT_TILE, SELECT_FLEET, UNSELECT_FLEET, CREATE_FLEET, MOVE_FLEET } from './reducer';
-import { getTile, getSelectedFleets, isAnyFleetSelected } from './selector';
+import {
+  CREATE_BOARD,
+  SET_TILE,
+  SELECT_TILE,
+  SELECT_FLEET,
+  UNSELECT_FLEET,
+  CREATE_FLEET,
+  MOVE_FLEET,
+  ADD_HISTORY,
+} from './reducer';
+import {
+  getTile,
+  getSelectedFleets,
+  isAnyFleetSelected,
+} from './selector';
+import { historyTypes } from './historyTypes';
 
 let idGenerator = 1;
 const newId = () => idGenerator++;
@@ -36,7 +50,15 @@ export const createBoard = size => (dispatch) => {
     },
   });
 
-  return dispatch({ type: CREATE_BOARD, payload: tiles });
+  dispatch({ type: CREATE_BOARD, payload: tiles });
+
+  dispatch({
+    type: ADD_HISTORY,
+    payload: {
+      type: historyTypes.INIT,
+      board: tiles,
+    },
+  });
 };
 
 export const setTile = (x, y) => ({
