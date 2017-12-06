@@ -14,10 +14,13 @@ class Main extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="grid-container">
+        <div className="left-stuff">hej</div>
         <div className="hexagon-holder">
           {this.props.tiles.map(tile => <Tile key={tile.id} tile={tile} color="blue" />)}
         </div>
+        <div className="menu">menu</div>
+        <div className="right-stuff">hej</div>
       </div>
     );
   }

@@ -11,8 +11,8 @@ import './tile.scss';
 
 const Tile = (props) => {
   const { tile, reachable, selected, fleets } = props;
-  const marginTop = `${500 + 210 * (tile.y + tile.x * 0.5)}px`;
-  const marginLeft = `${700 + 210 * (tile.x * 0.85)}px`;
+  const marginTop = `${630 + 210 * (tile.y + tile.x * 0.5)}px`;
+  const marginLeft = `${560 + 210 * (tile.x * 0.85)}px`;
   let color;
   if (reachable) {
     color = 'purple';
