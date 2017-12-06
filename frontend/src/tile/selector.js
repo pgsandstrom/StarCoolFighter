@@ -3,14 +3,18 @@ import _ from 'lodash';
 const getTiles = state => state.tileReducer.tiles;
 
 // TODO jesus this is so ineffective... perhaps selector with large cache?
-const getTile = (state, tileId) => getTiles(state).find(tile => tile.id === tileId);
+export const getTile = (state, tileId) => getTiles(state).find(tile => tile.id === tileId);
 
-const getFleets = state => state.tileReducer.fleets;
+export const getFleets = state => state.tileReducer.fleets;
 
-const getSelectedFleets = state =>
+export const getSelectedFleets = state =>
   Object.keys(state.tileReducer.selectedFleetsId)
     .filter(key => state.tileReducer.selectedFleetsId[key])
     .map(key => state.tileReducer.fleets.find(fleet => fleet.id === Number(key)));
+
+export const isAnyFleetSelected = state =>
+  Object.keys(state.tileReducer.selectedFleetsId)
+    .some(key => state.tileReducer.selectedFleetsId[key]);
 
 export const getFleetsForTile = (state, tile) =>
   state.tileReducer.fleets.filter(fleet => fleet.x === tile.x && fleet.y === tile.y);

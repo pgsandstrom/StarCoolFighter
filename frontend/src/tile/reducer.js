@@ -38,6 +38,15 @@ export default (state = initialState, action) => {
       });
     case CREATE_FLEET:
       return { ...state, fleets: [...state.fleets, action.payload.fleet] };
+    case MOVE_FLEET:
+      return { ...state,
+        fleets: state.fleets.map((fleet) => {
+          if (action.payload.fleetIds.includes(fleet.id)) {
+            return { ...fleet, x: action.payload.to.x, y: action.payload.to.y };
+          } else {
+            return fleet;
+          }
+        }) };
     default:
       return state;
   }

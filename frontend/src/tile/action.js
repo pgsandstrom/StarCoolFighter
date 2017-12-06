@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import { CREATE_BOARD, SET_TILE, SELECT_TILE, SELECT_FLEET, UNSELECT_FLEET, CREATE_FLEET, MOVE_FLEET } from './reducer';
+import { getTile, getSelectedFleets, isAnyFleetSelected } from './selector';
 
 let idGenerator = 1;
 const newId = () => idGenerator++;
@@ -46,12 +47,20 @@ export const setTile = (x, y) => ({
   },
 });
 
-export const selectTile = id => ({
-  type: SELECT_TILE,
-  payload: {
-    id,
-  },
-});
+export const selectTile = id => (dispatch, getState) => {
+  dispatch({
+    type: SELECT_TILE,
+    payload: {
+      id,
+    },
+  });
+  // TODO make moving work correctly
+  // TODO also save the transitions in the state so they can be watched later
+  if (isAnyFleetSelected(getState())) {
+    const tile = getTile(getState(), id);
+    dispatch(moveFleet(tile.x, tile.y));
+  }
+};
 
 export const selectFleet = id => ({
   type: SELECT_FLEET,
@@ -66,3 +75,14 @@ export const unselectFleet = id => ({
     id,
   },
 });
+
+export const moveFleet = (x, y) => (dispatch, getState) => {
+  const selectedFleetIds = getSelectedFleets(getState()).map(fleet => fleet.id);
+  dispatch({
+    type: MOVE_FLEET,
+    payload: {
+      fleetIds: selectedFleetIds,
+      to: { x, y },
+    },
+  });
+};
