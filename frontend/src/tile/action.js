@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { CREATE_BOARD, SET_TILE, SELECT_TILE, SELECT_FLEET, UNSELECT_FLEET, CREATE_FLEET } from './reducer';
+import { CREATE_BOARD, SET_TILE, SELECT_TILE, SELECT_FLEET, UNSELECT_FLEET, CREATE_FLEET, MOVE_FLEET } from './reducer';
 
 let idGenerator = 1;
 const newId = () => idGenerator++;
@@ -17,15 +17,12 @@ const defaultFleet = {
 
 const getNewItem = item => ({ ..._.cloneDeep(item), id: newId() });
 
-export const createBoard = (size) => (dispatch, getState) => {
+export const createBoard = size => (dispatch) => {
   const tiles = [];
   for (let outer = -size; outer <= size; outer++) {
     for (let inner = -size; inner <= size; inner++) {
       const combined = outer + inner;
       if (-size <= combined && combined <= size) {
-        if (tiles[outer] == null) {
-          tiles[outer] = {};
-        }
         tiles.push(getNewItem({ ...defaultTile, x: outer, y: inner }));
       }
     }

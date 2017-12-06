@@ -39,13 +39,4 @@ export const isTileReachable = (state, tileId) => {
   }
 
   return selectedFleetsId.every(selectedFleet => canFleetReachTile(selectedFleet, tile));
-  // const fleets = getFleets(state);
-  // return fleets.every((fleet) => {
-  //   if (selectedFleetsId.includes(fleet.id) === false) {
-  //     return true;
-  //   } else {
-  //     const tile = getTile(state, tileId);
-  //     return canFleetReachTile(fleet, tile);
-  //   }
-  // });
 };

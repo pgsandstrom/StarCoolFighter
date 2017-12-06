@@ -30,6 +30,7 @@ module.exports = {
       "ObjectExpression": { "consistent": true },
       "ObjectPattern": { "consistent": true }
     }],
+    "no-plusplus": ["off"], // While it shouldn't be used too often, it can be nice to use
 
     // This stuff is usually smart, but turned off for this project:
     "jsx-a11y/click-events-have-key-events": ["off"],
