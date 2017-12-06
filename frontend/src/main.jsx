@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Tile from './tile/tile';
+import HistoryView from './history/historyView';
 import { createBoard } from './tile/action';
 
 import './main.scss';
@@ -20,7 +21,7 @@ class Main extends React.Component {
           {this.props.tiles.map(tile => <Tile key={tile.id} tile={tile} color="blue" />)}
         </div>
         <div className="menu">menu</div>
-        <div className="right-stuff">hej</div>
+        <div className="right-stuff"><HistoryView /></div>
       </div>
     );
   }
