@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Fleet from './fleet';
+import Planet from './planet/planet';
 
 import { selectTile } from '../player/action';
 import { getRelevantFleetsForTile } from './selector';
 import { isTileReachable } from '../player/selector';
+import { getPlanetOnLocation } from './planet/selector';
 
 import './tile.scss';
 
 const Tile = (props) => {
-  const { tile, reachable, selected, fleets } = props;
+  const { tile, reachable, selected, fleets, planets } = props;
   const marginTop = `${630 + 210 * (tile.y + tile.x * 0.5)}px`;
   const marginLeft = `${560 + 210 * (tile.x * 0.85)}px`;
   let color;
@@ -27,7 +29,8 @@ const Tile = (props) => {
       <div className="hexagon-in1">
         <div className="hexagon-in2" style={{ background: color }}>
           <div className="hexagon-content">
-            {fleets.map(fleet => <Fleet key={fleet.id} id={fleet.id} />)}
+            {fleets.map(fleet => <Fleet key={fleet.id} fleet={fleet} />)}
+            {planets.map(planet => <Planet key={planet.id} planet={planet} />)}
             {/* <div className="fleet"> */}
             {/* {props.x}.{props.y} */}
             {/* </div> */}
@@ -50,6 +53,7 @@ export default connect((state, ownProps) => ({
   selected: ownProps.tile.id === state.playerReducer.selectedTileId,
   reachable: isTileReachable(state, ownProps.tile.id),
   fleets: getRelevantFleetsForTile(state, ownProps.tile),
+  planets: getPlanetOnLocation(state, ownProps.tile.x, ownProps.tile.y),
 }), {
   selectTile,
 })(Tile);
