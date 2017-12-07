@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Tile from './tile';
 import HistoryView from '../history/historyView';
-import { createBoard } from './action';
+import { } from './action';
 
 import './tileContainer.scss';
 import { getRelevantTiles } from './selector';

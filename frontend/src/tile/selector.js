@@ -55,4 +55,13 @@ const getRelevantTileReducer = (state) => {
   }
 };
 
+export const getHistoryAction = (state) => {
+  const selectedHistory = getSelectedHistory(state);
+  if (selectedHistory != null) {
+    return selectedHistory.action;
+  } else {
+    return null;
+  }
+};
+
 const getSelectedHistory = state => state.tileReducer.history.find(historyItem => historyItem.selected);
