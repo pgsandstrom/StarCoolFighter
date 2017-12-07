@@ -32,7 +32,7 @@ const defaultFleet = {
 
 const getNewItem = item => ({ ..._.cloneDeep(item), id: newId() });
 
-export const createBoard = size => (dispatch) => {
+export const createBoard = size => (dispatch, getState) => {
   const tiles = [];
   for (let outer = -size; outer <= size; outer++) {
     for (let inner = -size; inner <= size; inner++) {
@@ -52,24 +52,25 @@ export const createBoard = size => (dispatch) => {
 
   dispatch({ type: CREATE_BOARD, payload: tiles });
 
-  dispatch(addHistory(historyTypes.INIT, tiles));
+  dispatch(addHistory(historyTypes.INIT));
 };
 
-export const addHistory = (type, boardParam) => (dispatch, getState) => {
-  let board;
-  if (boardParam != null) {
-    board = boardParam;
+export const addHistory = (type, tileReducerParam, action = null) => (dispatch, getState) => {
+  let tileReducer;
+  if (tileReducerParam != null) {
+    tileReducer = tileReducerParam;
   } else {
-    board = getState().tileReducer.tiles;
+    tileReducer = getState().tileReducer;
   }
 
   dispatch({
     type: ADD_HISTORY,
     payload: {
       id: newId(),
-      type: historyTypes.INIT,
-      board,
+      type,
+      tileReducer,
       selected: false,
+      action,
     },
   });
 };
@@ -119,12 +120,14 @@ export const unselectFleet = id => ({
 });
 
 export const moveFleet = (x, y) => (dispatch, getState) => {
-  const selectedFleetIds = getSelectedFleets(getState()).map(fleet => fleet.id);
-  dispatch({
+  const beforeState = getState();
+  const selectedFleetIds = getSelectedFleets(beforeState).map(fleet => fleet.id);
+  const moveAction = dispatch({
     type: MOVE_FLEET,
     payload: {
       fleetIds: selectedFleetIds,
       to: { x, y },
     },
   });
+  dispatch(addHistory(historyTypes.MOVE, beforeState.tileReducer, moveAction));
 };

@@ -6,7 +6,8 @@ import { selectHistory } from '../tile/action';
 
 const HistoryView = props => (
   <div>
-    {props.history.map(item => <HistoryItem item={item} selectHistory={props.selectHistory} />)}
+    <button onClick={() => props.selectHistory()}>Clear history meck</button>
+    {props.history.map(item => <HistoryItem key={item.id} item={item} selectHistory={props.selectHistory} />)}
   </div>);
 HistoryView.propTypes = {
   history: PropTypes.array.isRequired,

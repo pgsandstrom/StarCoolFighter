@@ -2,6 +2,8 @@ import _ from 'lodash';
 
 const getTiles = state => state.tileReducer.tiles;
 
+export const getRelevantTiles = state => getRelevantTileReducer(state).tiles;
+
 // TODO jesus this is so ineffective... perhaps selector with large cache?
 export const getTile = (state, tileId) => getTiles(state).find(tile => tile.id === tileId);
 
@@ -16,8 +18,7 @@ export const isAnyFleetSelected = state =>
   Object.keys(state.tileReducer.selectedFleetsId)
     .some(key => state.tileReducer.selectedFleetsId[key]);
 
-export const getFleetsForTile = (state, tile) =>
-  state.tileReducer.fleets.filter(fleet => fleet.x === tile.x && fleet.y === tile.y);
+export const getRelevantFleetsForTile = (state, tile) => getRelevantTileReducer(state).fleets.filter(fleet => fleet.x === tile.x && fleet.y === tile.y);
 
 const canFleetReachTile = (fleet, tile) => {
   const xDiff = fleet.x - tile.x;
@@ -44,3 +45,14 @@ export const isTileReachable = (state, tileId) => {
 
   return selectedFleetsId.every(selectedFleet => canFleetReachTile(selectedFleet, tile));
 };
+
+const getRelevantTileReducer = (state) => {
+  const selectedHistory = getSelectedHistory(state);
+  if (selectedHistory != null) {
+    return selectedHistory.tileReducer;
+  } else {
+    return state.tileReducer;
+  }
+};
+
+const getSelectedHistory = state => state.tileReducer.history.find(historyItem => historyItem.selected);
