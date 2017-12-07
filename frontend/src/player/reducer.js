@@ -1,8 +1,8 @@
 import update from 'immutability-helper';
 
-export const SELECT_TILE = 'tile/SELECT_TILE';
-export const SELECT_FLEET = 'tile/SELECT_FLEET';
-export const UNSELECT_FLEET = 'tile/UNSELECT_FLEET';
+export const SELECT_TILE = 'player/SELECT_TILE';
+export const SELECT_FLEET = 'player/SELECT_FLEET';
+export const UNSELECT_FLEET = 'player/UNSELECT_FLEET';
 
 const initialState = {
   selectedTileId: null,

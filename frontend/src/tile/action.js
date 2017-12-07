@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   CREATE_BOARD,
   SET_TILE,
@@ -9,7 +11,8 @@ import {
   getSelectedFleets,
 } from '../player/selector';
 import { historyTypes } from './historyTypes';
-import { newId, getNewItem } from '../util';
+import { newId, getNewItem, getRandomInt } from '../util';
+import { createRandomPlanet } from './planet/action';
 
 const defaultTile = {
   x: undefined,
@@ -29,6 +32,7 @@ export const createBoard = size => (dispatch) => {
       const combined = outer + inner;
       if (-size <= combined && combined <= size) {
         tiles.push(getNewItem({ ...defaultTile, x: outer, y: inner }));
+        _.times(getRandomInt(0, 3), () => dispatch(createRandomPlanet(outer, inner)));
       }
     }
   }
