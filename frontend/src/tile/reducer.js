@@ -7,6 +7,7 @@ export const UNSELECT_FLEET = 'tile/UNSELECT_FLEET';
 export const CREATE_FLEET = 'tile/CREATE_FLEET';
 export const MOVE_FLEET = 'tile/MOVE_FLEET';
 export const ADD_HISTORY = 'tile/ADD_HISTORY';
+export const SELECT_HISTORY = 'tile/SELECT_HISTORY';
 
 const initialState = {
   tiles: [],
@@ -51,6 +52,9 @@ export default (state = initialState, action) => {
         }) };
     case ADD_HISTORY: {
       return { ...state, history: [...state.history, action.payload] };
+    }
+    case SELECT_HISTORY: {
+      return { ...state, history: state.history.map(item => ({ ...item, selected: item.id === action.payload.id })) };
     }
     default:
       return state;

@@ -8,7 +8,7 @@ import {
   UNSELECT_FLEET,
   CREATE_FLEET,
   MOVE_FLEET,
-  ADD_HISTORY,
+  ADD_HISTORY, SELECT_HISTORY,
 } from './reducer';
 import {
   getTile,
@@ -52,14 +52,34 @@ export const createBoard = size => (dispatch) => {
 
   dispatch({ type: CREATE_BOARD, payload: tiles });
 
+  dispatch(addHistory(historyTypes.INIT, tiles));
+};
+
+export const addHistory = (type, boardParam) => (dispatch, getState) => {
+  let board;
+  if (boardParam != null) {
+    board = boardParam;
+  } else {
+    board = getState().tileReducer.tiles;
+  }
+
   dispatch({
     type: ADD_HISTORY,
     payload: {
+      id: newId(),
       type: historyTypes.INIT,
-      board: tiles,
+      board,
+      selected: false,
     },
   });
 };
+
+export const selectHistory = id => ({
+  type: SELECT_HISTORY,
+  payload: {
+    id,
+  },
+});
 
 export const setTile = (x, y) => ({
   type: SET_TILE,
