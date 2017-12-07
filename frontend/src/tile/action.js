@@ -1,24 +1,15 @@
-import _ from 'lodash';
-
 import {
   CREATE_BOARD,
   SET_TILE,
-  SELECT_TILE,
-  SELECT_FLEET,
-  UNSELECT_FLEET,
   CREATE_FLEET,
   MOVE_FLEET,
   ADD_HISTORY, SELECT_HISTORY,
 } from './reducer';
 import {
-  getTile,
   getSelectedFleets,
-  isAnyFleetSelected,
-} from './selector';
+} from '../player/selector';
 import { historyTypes } from './historyTypes';
-
-let idGenerator = 1;
-const newId = () => idGenerator++;
+import { newId, getNewItem } from '../util';
 
 const defaultTile = {
   x: undefined,
@@ -30,9 +21,8 @@ const defaultFleet = {
   y: undefined,
 };
 
-const getNewItem = item => ({ ..._.cloneDeep(item), id: newId() });
 
-export const createBoard = size => (dispatch, getState) => {
+export const createBoard = size => (dispatch) => {
   const tiles = [];
   for (let outer = -size; outer <= size; outer++) {
     for (let inner = -size; inner <= size; inner++) {
@@ -87,35 +77,6 @@ export const setTile = (x, y) => ({
   payload: {
     x,
     y,
-  },
-});
-
-export const selectTile = id => (dispatch, getState) => {
-  dispatch({
-    type: SELECT_TILE,
-    payload: {
-      id,
-    },
-  });
-  // TODO make moving work correctly
-  // TODO also save the transitions in the state so they can be watched later
-  if (isAnyFleetSelected(getState())) {
-    const tile = getTile(getState(), id);
-    dispatch(moveFleet(tile.x, tile.y));
-  }
-};
-
-export const selectFleet = id => ({
-  type: SELECT_FLEET,
-  payload: {
-    id,
-  },
-});
-
-export const unselectFleet = id => ({
-  type: UNSELECT_FLEET,
-  payload: {
-    id,
   },
 });
 

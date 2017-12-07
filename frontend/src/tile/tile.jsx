@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 
 import Fleet from './fleet';
 
-import { selectTile } from './action';
-import { isTileReachable, getRelevantFleetsForTile } from './selector';
+import { selectTile } from '../player/action';
+import { getRelevantFleetsForTile } from './selector';
+import { isTileReachable } from '../player/selector';
 
 import './tile.scss';
 
@@ -46,7 +47,7 @@ Tile.propTypes = {
 };
 
 export default connect((state, ownProps) => ({
-  selected: ownProps.tile.id === state.tileReducer.selectedTileId,
+  selected: ownProps.tile.id === state.playerReducer.selectedTileId,
   reachable: isTileReachable(state, ownProps.tile.id),
   fleets: getRelevantFleetsForTile(state, ownProps.tile),
 }), {
