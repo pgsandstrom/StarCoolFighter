@@ -7,8 +7,8 @@ import Planet from './planet/planet';
 
 import { moveFleet } from './action';
 import { getRelevantFleetsForTile } from './selector';
-import { selectTile } from '../player/action';
-import { isTileReachable } from '../player/selector';
+import { selectTile } from '../personal/action';
+import { isTileReachable } from '../personal/selector';
 import { getPlanetOnLocation } from './planet/selector';
 
 import './tile.scss';
@@ -29,8 +29,8 @@ const Tile = (props) => {
     <div
       className="hexagon"
       style={{ marginTop, marginLeft }}
-      onClick={(e) => { e.stopPropagation(); props.moveFleet(tile.id); }}
-      onContextMenu={(e) => { e.preventDefault(); props.selectTile(tile.id); }}
+      onClick={(e) => { e.stopPropagation(); props.selectTile(tile.id); }}
+      onContextMenu={(e) => { e.preventDefault(); props.moveFleet(tile.id); }}
     >
       <div className="hexagon-in1">
         <div className="hexagon-in2" style={{ background: color }}>

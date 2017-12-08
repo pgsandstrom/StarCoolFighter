@@ -1,11 +1,11 @@
 import update from 'immutability-helper';
 
-export const SELECT_TILE = 'player/SELECT_TILE';
-export const UNSELECT_TILE = 'player/UNSELECT_TILE';
-export const SELECT_FLEET = 'player/SELECT_FLEET';
-export const UNSELECT_FLEET = 'player/UNSELECT_FLEET';
-export const SELECT_PLANET = 'player/SELECT_PLANET';
-export const UNSELECT_PLANET = 'player/UNSELECT_PLANET';
+export const SELECT_TILE = 'personal/SELECT_TILE';
+export const UNSELECT_TILE = 'personal/UNSELECT_TILE';
+export const SELECT_FLEET = 'personal/SELECT_FLEET';
+export const UNSELECT_FLEET = 'personal/UNSELECT_FLEET';
+export const SELECT_PLANET = 'personal/SELECT_PLANET';
+export const UNSELECT_PLANET = 'personal/UNSELECT_PLANET';
 
 const initialState = {
   selectedTileId: null,

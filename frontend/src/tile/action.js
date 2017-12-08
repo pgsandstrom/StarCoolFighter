@@ -9,7 +9,7 @@ import {
 } from './reducer';
 import {
   getSelectedFleets, isAnyFleetSelected,
-} from '../player/selector';
+} from '../personal/selector';
 import { historyTypes } from './historyTypes';
 import { newId, getNewItem, getRandomInt } from '../util';
 import { createRandomPlanet } from './planet/action';

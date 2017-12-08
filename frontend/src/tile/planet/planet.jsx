@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 
-import { selectPlanet } from '../../player/action';
+import { selectPlanet } from '../../personal/action';
 
 import './planet.scss';
 

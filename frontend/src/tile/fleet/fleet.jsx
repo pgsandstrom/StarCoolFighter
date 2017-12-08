@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 
-import { selectFleet, unselectFleet } from '../../player/action';
+import { selectFleet, unselectFleet } from '../../personal/action';
 
 import './fleet.scss';
 
