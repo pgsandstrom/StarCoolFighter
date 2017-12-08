@@ -1,29 +1,24 @@
 import {
   SELECT_TILE,
+  UNSELECT_TILE,
   SELECT_FLEET,
   UNSELECT_FLEET,
+  SELECT_PLANET,
+  UNSELECT_PLANET,
 } from './reducer';
-import {
-  isAnyFleetSelected,
-} from './selector';
-import { getTile } from '../tile/selector';
-import { moveFleet } from '../tile/action';
 
-
-export const selectTile = id => (dispatch, getState) => {
+export const selectTile = id => (dispatch) => {
   dispatch({
     type: SELECT_TILE,
     payload: {
       id,
     },
   });
-  // TODO make moving work correctly
-  // TODO also save the transitions in the state so they can be watched later
-  if (isAnyFleetSelected(getState())) {
-    const tile = getTile(getState(), id);
-    dispatch(moveFleet(tile.x, tile.y));
-  }
 };
+
+export const unselectTile = () => ({
+  type: UNSELECT_TILE,
+});
 
 export const selectFleet = id => ({
   type: SELECT_FLEET,
@@ -39,3 +34,18 @@ export const unselectFleet = id => ({
   },
 });
 
+export const selectPlanet = id => (dispatch, getState) => {
+  if (getState().playerReducer.selectedTileId != null) {
+    dispatch(unselectTile());
+  }
+  dispatch({
+    type: SELECT_PLANET,
+    payload: {
+      id,
+    },
+  });
+};
+
+export const unselectPlanet = () => ({
+  type: UNSELECT_PLANET,
+});

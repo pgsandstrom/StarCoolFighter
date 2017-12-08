@@ -8,11 +8,12 @@ import {
   ADD_HISTORY, SELECT_HISTORY,
 } from './reducer';
 import {
-  getSelectedFleets,
+  getSelectedFleets, isAnyFleetSelected,
 } from '../player/selector';
 import { historyTypes } from './historyTypes';
 import { newId, getNewItem, getRandomInt } from '../util';
 import { createRandomPlanet } from './planet/action';
+import { getTile } from './selector';
 
 const defaultTile = {
   x: undefined,
@@ -84,14 +85,19 @@ export const setTile = (x, y) => ({
   },
 });
 
-export const moveFleet = (x, y) => (dispatch, getState) => {
+export const moveFleet = tileId => (dispatch, getState) => {
+  if (isAnyFleetSelected(getState()) === false) {
+    return;
+  }
+
+  const tile = getTile(getState(), tileId);
   const beforeState = getState();
   const selectedFleetIds = getSelectedFleets(beforeState).map(fleet => fleet.id);
   const moveAction = dispatch({
     type: MOVE_FLEET,
     payload: {
       fleetIds: selectedFleetIds,
-      to: { x, y },
+      to: { x: tile.x, y: tile.y },
     },
   });
   dispatch(addHistory(historyTypes.MOVE, beforeState.tileReducer, moveAction));

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 
-import { selectFleet, unselectFleet } from '../player/action';
+import { selectFleet, unselectFleet } from '../../player/action';
 
 import './fleet.scss';
 
@@ -21,7 +21,10 @@ const Fleet = (props) => {
     fleet: true,
     selected: props.selected,
   });
-  return <div className={classes} onClick={e => onClick(props, e)}><img src="/img/ship.png" /></div>;
+  return (
+    <span className={classes} onClick={e => onClick(props, e)}>
+      <img src="/img/ship.png" />
+    </span>);
 };
 Fleet.propTypes = {
   fleet: PropTypes.object.isRequired, // eslint-disable-line react/no-unused-prop-types

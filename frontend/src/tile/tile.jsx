@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Fleet from './fleet';
+import Fleet from './fleet/fleet';
 import Planet from './planet/planet';
 
-import { selectTile } from '../player/action';
+import { moveFleet } from './action';
 import { getRelevantFleetsForTile } from './selector';
+import { selectTile } from '../player/action';
 import { isTileReachable } from '../player/selector';
 import { getPlanetOnLocation } from './planet/selector';
 
@@ -25,13 +26,18 @@ const Tile = (props) => {
     color = props.color;
   }
   return (
-    <div className="hexagon" style={{ marginTop, marginLeft }} onClick={() => props.selectTile(tile.id)}>
+    <div
+      className="hexagon"
+      style={{ marginTop, marginLeft }}
+      onClick={(e) => { e.stopPropagation(); props.moveFleet(tile.id); }}
+      onContextMenu={(e) => { e.preventDefault(); props.selectTile(tile.id); }}
+    >
       <div className="hexagon-in1">
         <div className="hexagon-in2" style={{ background: color }}>
           <div className="hexagon-content">
             <div className="real-content">
-              {fleets.map(fleet => <Fleet key={fleet.id} fleet={fleet} />)}
               {planets.map(planet => <Planet key={planet.id} planet={planet} />)}
+              {fleets.map(fleet => <Fleet key={fleet.id} fleet={fleet} />)}
             </div>
           </div>
         </div>
@@ -47,6 +53,7 @@ Tile.propTypes = {
   selected: PropTypes.bool.isRequired,
   reachable: PropTypes.bool.isRequired,
   selectTile: PropTypes.func.isRequired,
+  moveFleet: PropTypes.func.isRequired,
 };
 
 export default connect((state, ownProps) => ({
@@ -56,4 +63,5 @@ export default connect((state, ownProps) => ({
   planets: getPlanetOnLocation(state, ownProps.tile.x, ownProps.tile.y),
 }), {
   selectTile,
+  moveFleet,
 })(Tile);
