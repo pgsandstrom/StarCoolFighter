@@ -10,9 +10,9 @@ import './fleet.scss';
 const onClick = (props, e) => {
   e.stopPropagation();
   if (props.selected) {
-    props.unselectFleet(props.id);
+    props.unselectFleet(props.fleet.id);
   } else {
-    props.selectFleet(props.id);
+    props.selectFleet(props.fleet.id);
   }
 };
 
@@ -24,6 +24,7 @@ const Fleet = (props) => {
   return <div className={classes} onClick={e => onClick(props, e)}><img src="/img/ship.png" /></div>;
 };
 Fleet.propTypes = {
+  fleet: PropTypes.object.isRequired, // eslint-disable-line react/no-unused-prop-types
   selected: PropTypes.bool.isRequired,
   selectFleet: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   unselectFleet: PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
@@ -31,7 +32,7 @@ Fleet.propTypes = {
 
 
 export default connect((state, ownProps) => ({
-  selected: state.playerReducer.selectedFleetsId[ownProps.id] === true,
+  selected: state.playerReducer.selectedFleetsId[ownProps.fleet.id] === true,
 }), {
   selectFleet,
   unselectFleet,

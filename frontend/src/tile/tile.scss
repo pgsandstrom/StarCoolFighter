@@ -6,7 +6,6 @@
   cursor: pointer;
   width: 200px;
   height: 230px;
-  margin: -85px 0 0 0px;
 
   .hexagon-in1 {
     overflow: hidden;
@@ -15,14 +14,24 @@
     transform: rotate(-60deg);
 
     .hexagon-in2 {
+      position: relative;
       width: 100%;
       height: 100%;
       visibility: visible;
       transform: rotate(-60deg);
 
       .hexagon-content {
-        position: relative;
+        position:absolute;
+        //top: -17px;
+        //left: 89px;
+        //border-top: 5px solid green;
         transform: rotate(90deg);
+        .real-content {
+          width: 120px;
+          height: 200px;
+          margin-top: -20px;
+          margin-left: 50px;
+        }
       }
     }
   }

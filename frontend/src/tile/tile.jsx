@@ -29,11 +29,10 @@ const Tile = (props) => {
       <div className="hexagon-in1">
         <div className="hexagon-in2" style={{ background: color }}>
           <div className="hexagon-content">
-            {fleets.map(fleet => <Fleet key={fleet.id} fleet={fleet} />)}
-            {planets.map(planet => <Planet key={planet.id} planet={planet} />)}
-            {/* <div className="fleet"> */}
-            {/* {props.x}.{props.y} */}
-            {/* </div> */}
+            <div className="real-content">
+              {fleets.map(fleet => <Fleet key={fleet.id} fleet={fleet} />)}
+              {planets.map(planet => <Planet key={planet.id} planet={planet} />)}
+            </div>
           </div>
         </div>
       </div>
@@ -44,6 +43,7 @@ Tile.propTypes = {
   tile: PropTypes.object.isRequired,
   color: PropTypes.string.isRequired,
   fleets: PropTypes.array.isRequired,
+  planets: PropTypes.array.isRequired,
   selected: PropTypes.bool.isRequired,
   reachable: PropTypes.bool.isRequired,
   selectTile: PropTypes.func.isRequired,
