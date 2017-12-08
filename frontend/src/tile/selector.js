@@ -28,3 +28,14 @@ export const getHistoryAction = (state) => {
 };
 
 const getSelectedHistory = state => state.tileReducer.history.find(historyItem => historyItem.selected);
+
+export const startPositions = [
+  { x: 3, y: 0 },
+  { x: 3, y: -3 },
+  { x: 0, y: 3 },
+  { x: 0, y: -3 },
+  { x: -3, y: 3 },
+  { x: -3, y: -0 },
+];
+
+export const isStartPosition = (x, y) => startPositions.some(startPosition => startPosition.x === x && startPosition.y === y);

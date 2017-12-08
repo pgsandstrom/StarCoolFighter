@@ -16,7 +16,7 @@ export const createRandomPlanet = (x, y) => {
   return createPlanet(x, y, undefined, resource, influence);
 };
 
-const createPlanet = (x, y, name, resource, influence) => {
+export const createPlanet = (x, y, name, resource, influence) => {
   const newPlanet = getNewItem({ ...defaultPlanet, x, y, name, resource, influence });
   return {
     type: CREATE_PLANET,

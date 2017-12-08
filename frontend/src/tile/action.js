@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
 import {
+  RESET_AVAILABLE_RACES,
+  REMOVE_AVAILABLE_RACE,
   CREATE_BOARD,
   SET_TILE,
   CREATE_FLEET,
@@ -13,7 +15,8 @@ import {
 import { historyTypes } from './historyTypes';
 import { newId, getNewItem, getRandomInt } from '../util';
 import { createRandomPlanet } from './planet/action';
-import { getTile } from './selector';
+import { getTile, isStartPosition } from './selector';
+import { getRaceList } from '../race/constants';
 
 const defaultTile = {
   x: undefined,
@@ -25,18 +28,9 @@ const defaultFleet = {
   y: undefined,
 };
 
-
-export const createBoard = size => (dispatch) => {
-  const tiles = [];
-  for (let outer = -size; outer <= size; outer++) {
-    for (let inner = -size; inner <= size; inner++) {
-      const combined = outer + inner;
-      if (-size <= combined && combined <= size) {
-        tiles.push(getNewItem({ ...defaultTile, x: outer, y: inner }));
-        _.times(getRandomInt(0, 3), () => dispatch(createRandomPlanet(outer, inner)));
-      }
-    }
-  }
+export const startGame = () => (dispatch) => {
+  dispatch(createBoard(3));
+  dispatch(resetAvailableRaces());
 
   dispatch({
     type: CREATE_FLEET,
@@ -45,9 +39,44 @@ export const createBoard = size => (dispatch) => {
     },
   });
 
-  dispatch({ type: CREATE_BOARD, payload: tiles });
 
   dispatch(addHistory(historyTypes.INIT));
+};
+
+export const resetAvailableRaces = () => ({
+  type: RESET_AVAILABLE_RACES,
+  payload: {
+    races: getRaceList(),
+  },
+});
+
+export const removeAvailableRace = raceName => (dispatch, getState) => {
+  const index = getState().tileReducer.availableRaces.findIndex(race => race.name === raceName);
+  if (index === -1) {
+    throw new Error('tried to remove nonexisting race');
+  }
+  dispatch({
+    type: REMOVE_AVAILABLE_RACE,
+    payload: {
+      index,
+    },
+  });
+};
+
+export const createBoard = size => (dispatch) => {
+  const tiles = [];
+  for (let outer = -size; outer <= size; outer++) {
+    for (let inner = -size; inner <= size; inner++) {
+      const combined = outer + inner;
+      if (-size <= combined && combined <= size) {
+        tiles.push(getNewItem({ ...defaultTile, x: outer, y: inner }));
+        if (isStartPosition(outer, inner) === false) {
+          _.times(getRandomInt(0, 3), () => dispatch(createRandomPlanet(outer, inner)));
+        }
+      }
+    }
+  }
+  dispatch({ type: CREATE_BOARD, payload: tiles });
 };
 
 export const addHistory = (type, tileReducerParam, action = null) => (dispatch, getState) => {

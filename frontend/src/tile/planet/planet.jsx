@@ -17,7 +17,11 @@ const Planet = (props) => {
     selected: props.selected,
   });
   return (
-    <span className={classes} onClick={() => props.selectPlanet(props.planet.id)} onContextMenu={() => planetRightClick()}>
+    <span
+      className={classes}
+      onClick={(e) => { e.stopPropagation(); props.selectPlanet(props.planet.id); }}
+      onContextMenu={() => planetRightClick()}
+    >
       <img src="/img/planet1.png" />
     </span>
   );
