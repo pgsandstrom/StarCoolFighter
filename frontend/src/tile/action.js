@@ -32,13 +32,9 @@ export const startGame = () => (dispatch) => {
   dispatch(createBoard(3));
   dispatch(resetAvailableRaces());
 
-  dispatch({
-    type: CREATE_FLEET,
-    payload: {
-      fleet: getNewItem({ ...defaultFleet, x: 1, y: 1 }),
-    },
-  });
-
+  dispatch(addFleet(1, 1));
+  dispatch(addFleet(1, 1));
+  dispatch(addFleet(1, 1));
 
   dispatch(addHistory(historyTypes.INIT));
 };
@@ -78,6 +74,13 @@ export const createBoard = size => (dispatch) => {
   }
   dispatch({ type: CREATE_BOARD, payload: tiles });
 };
+
+export const addFleet = (x, y) => ({
+  type: CREATE_FLEET,
+  payload: {
+    fleet: getNewItem({ ...defaultFleet, x, y }),
+  },
+});
 
 export const addHistory = (type, tileReducerParam, action = null) => (dispatch, getState) => {
   let tileReducer;

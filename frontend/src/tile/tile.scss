@@ -22,15 +22,14 @@
 
       .hexagon-content {
         position:absolute;
-        //top: -17px;
-        //left: 89px;
-        //border-top: 5px solid green;
         transform: rotate(90deg);
         .real-content {
-          width: 120px;
+          width: 130px;
           height: 200px;
-          margin-top: -20px;
+          margin-top: -14px;
           margin-left: 50px;
+
+          line-height: 0;
         }
       }
     }

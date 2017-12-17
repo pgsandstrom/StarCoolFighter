@@ -36,7 +36,9 @@ const Tile = (props) => {
         <div className="hexagon-in2" style={{ background: color }}>
           <div className="hexagon-content">
             <div className="real-content">
-              {planets.map(planet => <Planet key={planet.id} planet={planet} />)}
+              <div>
+                {planets.map(planet => <Planet key={planet.id} planet={planet} />)}
+              </div>
               {fleets.map(fleet => <Fleet key={fleet.id} fleet={fleet} />)}
             </div>
           </div>

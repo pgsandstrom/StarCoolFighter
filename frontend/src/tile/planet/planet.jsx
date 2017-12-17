@@ -13,7 +13,7 @@ const planetRightClick = (e) => {
 
 const Planet = (props) => {
   const classes = classNames({
-    fleet: true,
+    planet: true,
     selected: props.selected,
   });
   return (
