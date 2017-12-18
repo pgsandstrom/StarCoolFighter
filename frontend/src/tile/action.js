@@ -40,10 +40,10 @@ export const createBoard = size => (dispatch) => {
   dispatch({ type: CREATE_BOARD, payload: tiles });
 };
 
-export const addFleet = (x, y) => ({
+export const addFleet = (x, y, playerId) => ({
   type: CREATE_FLEET,
   payload: {
-    fleet: getNewItem({ ...defaultFleet, x, y }),
+    fleet: getNewItem({ ...defaultFleet, x, y, playerId }),
   },
 });
 

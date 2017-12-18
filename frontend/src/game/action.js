@@ -16,10 +16,6 @@ export const quickStartGame = () => (dispatch) => {
 
   _.times(6, () => dispatch(addRandomPlayer()));
 
-  dispatch(addFleet(1, 1));
-  dispatch(addFleet(1, 1));
-  dispatch(addFleet(1, 1));
-
   dispatch(addHistory(historyTypes.INIT));
 };
 

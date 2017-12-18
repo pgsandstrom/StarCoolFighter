@@ -47,8 +47,7 @@ const getPlayerControllingTile = (state, tile) => {
   const planets = getPlanetsOnLocation(state, tile.x, tile.y);
   const fleets = getFleetsOnLocation(state, tile.x, tile.y);
 
-  // TODO add fleets
-  const itemArray = [...planets];
+  const itemArray = [...planets, ...fleets];
 
   if (itemArray.length === 0) {
     return null;
@@ -67,8 +66,6 @@ const getPlayerControllingTile = (state, tile) => {
   }
 
   return null;
-
-  // TODO
 };
 
 export const startPositions = [
