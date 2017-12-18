@@ -1,10 +1,13 @@
 import _ from 'lodash';
 
-import { RESET_AVAILABLE_RACES, REMOVE_AVAILABLE_RACE, RESET_AVAILABLE_START_POSITIONS, REMOVE_AVAILABLE_START_POSITION } from './reducer';
+import {
+  RESET_AVAILABLE_RACES, REMOVE_AVAILABLE_RACE, RESET_AVAILABLE_START_POSITIONS, REMOVE_AVAILABLE_START_POSITION,
+  RESET_AVAILABLE_COLORS, REMOVE_AVAILABLE_COLOR
+} from './reducer';
 import { getRaceList } from '../race/constants';
 import { createBoard, addFleet, addHistory } from '../tile/action';
 import { historyTypes } from '../tile/historyTypes';
-import { getRandomAvailableRace, getRandomAvailableStartPosition } from './selector';
+import { getRandomAvailableColor, getRandomAvailableRace, getRandomAvailableStartPosition } from './selector';
 import { addPlayer } from '../player/action';
 
 export const quickStartGame = () => (dispatch) => {
@@ -13,9 +16,9 @@ export const quickStartGame = () => (dispatch) => {
 
   _.times(6, () => dispatch(addRandomPlayer()));
 
-  // dispatch(addFleet(1, 1));
-  // dispatch(addFleet(1, 1));
-  // dispatch(addFleet(1, 1));
+  dispatch(addFleet(1, 1));
+  dispatch(addFleet(1, 1));
+  dispatch(addFleet(1, 1));
 
   dispatch(addHistory(historyTypes.INIT));
 };
@@ -26,9 +29,11 @@ export const addRandomPlayer = () => (dispatch, getState) => {
   // console.log(state.gameReducer.availableStartPositions.length);
   const race = getRandomAvailableRace(state);
   const startPosition = getRandomAvailableStartPosition(state);
-  dispatch(addPlayer(startPosition.x, startPosition.y, race.name));
+  const color = getRandomAvailableColor(state);
+  dispatch(addPlayer(startPosition.x, startPosition.y, race.name, color));
   dispatch(removeAvailableRace(race.name));
   dispatch(removeAvailableStartPosition(startPosition));
+  dispatch(removeAvailableColors(color));
 };
 
 export const resetAvailableRaces = () => ({
@@ -53,8 +58,6 @@ export const removeAvailableRace = raceName => (dispatch, getState) => {
 
 export const resetAvailableStartPositions = () => ({
   type: RESET_AVAILABLE_START_POSITIONS,
-  payload: {
-  },
 });
 
 export const removeAvailableStartPosition = startPosition =>
@@ -62,5 +65,19 @@ export const removeAvailableStartPosition = startPosition =>
     type: REMOVE_AVAILABLE_START_POSITION,
     payload: {
       ...startPosition,
+    },
+  });
+
+export const resetAvailableColors = () => ({
+  type: RESET_AVAILABLE_COLORS,
+  payload: {
+  },
+});
+
+export const removeAvailableColors = color =>
+  ({
+    type: REMOVE_AVAILABLE_COLOR,
+    payload: {
+      color,
     },
   });

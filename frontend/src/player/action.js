@@ -2,19 +2,21 @@ import { ADD_PLAYER, ADD_MONEY, REMOVE_MONEY } from './reducer';
 import { raceMap } from '../race/constants';
 import { newId } from '../util';
 
-export const addPlayer = (x, y, raceName) => (dispatch) => {
+export const addPlayer = (x, y, raceName, color) => (dispatch) => {
   const race = raceMap[raceName];
+  const id = newId();
   dispatch({
     type: ADD_PLAYER,
     payload: {
       x,
       y,
       raceName,
-      id: newId(),
+      color,
+      id,
     },
   });
 
-  race.createHomeworld(dispatch, x, y);
+  race.createHomeworld(dispatch, x, y, id);
 };
 
 export const addMoney = () => (dispatch) => {

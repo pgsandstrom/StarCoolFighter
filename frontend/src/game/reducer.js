@@ -1,14 +1,17 @@
 import update from 'immutability-helper';
-import { startPositions } from '../tile/selector';
+import { startPositions, playerColors } from '../tile/selector';
 
 export const RESET_AVAILABLE_RACES = 'tile/RESET_AVAILABLE_RACES';
 export const REMOVE_AVAILABLE_RACE = 'tile/REMOVE_AVAILABLE_RACE';
 export const RESET_AVAILABLE_START_POSITIONS = 'tile/RESET_AVAILABLE_START_POSITIONS';
 export const REMOVE_AVAILABLE_START_POSITION = 'tile/REMOVE_AVAILABLE_START_POSITION';
+export const RESET_AVAILABLE_COLORS = 'tile/RESET_AVAILABLE_COLORS';
+export const REMOVE_AVAILABLE_COLOR = 'tile/REMOVE_AVAILABLE_COLOR';
 
 const initialState = {
   availableRaces: [],
   availableStartPositions: startPositions,
+  availableColors: playerColors,
 };
 
 export default (state = initialState, action) => {
@@ -27,6 +30,15 @@ export default (state = initialState, action) => {
         ...state,
         availableStartPositions: state.availableStartPositions.filter(
           startPosition => !(startPosition.x === action.payload.x && startPosition.y === action.payload.y),
+        ),
+      };
+    case RESET_AVAILABLE_COLORS:
+      return { ...state, availableColors: playerColors };
+    case REMOVE_AVAILABLE_COLOR:
+      return {
+        ...state,
+        availableColors: state.availableColors.filter(
+          color => color !== action.payload.color,
         ),
       };
     default:

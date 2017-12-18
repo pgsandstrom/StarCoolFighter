@@ -33,7 +33,7 @@ Planet.propTypes = {
 };
 
 export default connect((state, ownProps) => ({
-  selected: state.playerReducer.selectedPlanetId === ownProps.planet.id,
+  selected: state.personalReducer.selectedPlanetId === ownProps.planet.id,
 }), {
   selectPlanet,
 })(Planet);

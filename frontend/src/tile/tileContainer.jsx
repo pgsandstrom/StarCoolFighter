@@ -14,7 +14,7 @@ const TileContainer = (props) => {
     <div className="grid-container">
       <div className="left-stuff">hej</div>
       <div className="hexagon-holder">
-        {props.tiles.map(tile => <Tile key={tile.id} tile={tile} color="blue" />)}
+        {props.tiles.map(tile => <Tile key={tile.id} tile={tile} />)}
       </div>
       <div className="menu">menu</div>
       <div className="right-stuff"><HistoryView /></div>

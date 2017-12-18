@@ -15,3 +15,11 @@ export const getRandomAvailableStartPosition = (state) => {
   const index = getRandomInt(0, availableStartPositions.length - 1);
   return availableStartPositions[index];
 };
+
+export const getAvaiableColors = state => state.gameReducer.availableColors;
+
+export const getRandomAvailableColor = (state) => {
+  const availableColors = getAvaiableColors(state);
+  const index = getRandomInt(0, availableColors.length - 1);
+  return availableColors[index];
+};

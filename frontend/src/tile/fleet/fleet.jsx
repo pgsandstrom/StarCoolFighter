@@ -35,7 +35,7 @@ Fleet.propTypes = {
 
 
 export default connect((state, ownProps) => ({
-  selected: state.playerReducer.selectedFleetsId[ownProps.fleet.id] === true,
+  selected: state.personalReducer.selectedFleetsId[ownProps.fleet.id] === true,
 }), {
   selectFleet,
   unselectFleet,

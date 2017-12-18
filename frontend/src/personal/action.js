@@ -35,7 +35,7 @@ export const unselectFleet = id => ({
 });
 
 export const selectPlanet = id => (dispatch, getState) => {
-  if (getState().playerReducer.selectedTileId != null) {
+  if (getState().personalReducer.selectedTileId != null) {
     dispatch(unselectTile());
   }
   dispatch({

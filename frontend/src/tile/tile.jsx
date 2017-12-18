@@ -6,10 +6,10 @@ import Fleet from './fleet/fleet';
 import Planet from './planet/planet';
 
 import { moveFleet } from './action';
-import { getRelevantFleetsForTile } from './selector';
+import { getRelevantFleetsForTile, getTileColor } from './selector';
 import { selectTile } from '../personal/action';
 import { isTileReachable } from '../personal/selector';
-import { getPlanetOnLocation } from './planet/selector';
+import { getPlanetsOnLocation } from './planet/selector';
 
 import './tile.scss';
 
@@ -22,8 +22,10 @@ const Tile = (props) => {
     color = 'purple';
   } else if (selected) {
     color = 'red';
-  } else {
+  } else if(props.color) {
     color = props.color;
+  } else {
+    color = 'blue';
   }
   return (
     <div
@@ -49,7 +51,7 @@ const Tile = (props) => {
 };
 Tile.propTypes = {
   tile: PropTypes.object.isRequired,
-  color: PropTypes.string.isRequired,
+  color: PropTypes.string,
   fleets: PropTypes.array.isRequired,
   planets: PropTypes.array.isRequired,
   selected: PropTypes.bool.isRequired,
@@ -59,10 +61,11 @@ Tile.propTypes = {
 };
 
 export default connect((state, ownProps) => ({
-  selected: ownProps.tile.id === state.playerReducer.selectedTileId,
+  color: getTileColor(state, ownProps.tile),
+  selected: ownProps.tile.id === state.personalReducer.selectedTileId,
   reachable: isTileReachable(state, ownProps.tile.id),
   fleets: getRelevantFleetsForTile(state, ownProps.tile),
-  planets: getPlanetOnLocation(state, ownProps.tile.x, ownProps.tile.y),
+  planets: getPlanetsOnLocation(state, ownProps.tile.x, ownProps.tile.y),
 }), {
   selectTile,
   moveFleet,

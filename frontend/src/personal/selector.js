@@ -1,13 +1,13 @@
 import { getTile } from '../tile/selector';
 
 export const getSelectedFleets = state =>
-  Object.keys(state.playerReducer.selectedFleetsId)
-    .filter(key => state.playerReducer.selectedFleetsId[key])
+  Object.keys(state.personalReducer.selectedFleetsId)
+    .filter(key => state.personalReducer.selectedFleetsId[key])
     .map(key => state.tileReducer.fleets.find(fleet => fleet.id === Number(key)));
 
 export const isAnyFleetSelected = state =>
-  Object.keys(state.playerReducer.selectedFleetsId)
-    .some(key => state.playerReducer.selectedFleetsId[key]);
+  Object.keys(state.personalReducer.selectedFleetsId)
+    .some(key => state.personalReducer.selectedFleetsId[key]);
 
 const canFleetReachTile = (fleet, tile) => {
   const xDiff = fleet.x - tile.x;
