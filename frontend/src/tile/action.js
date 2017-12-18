@@ -1,10 +1,7 @@
 import _ from 'lodash';
 
 import {
-  RESET_AVAILABLE_RACES,
-  REMOVE_AVAILABLE_RACE,
   CREATE_BOARD,
-  SET_TILE,
   CREATE_FLEET,
   MOVE_FLEET,
   ADD_HISTORY, SELECT_HISTORY,
@@ -16,7 +13,6 @@ import { historyTypes } from './historyTypes';
 import { newId, getNewItem, getRandomInt } from '../util';
 import { createRandomPlanet } from './planet/action';
 import { getTile, isStartPosition } from './selector';
-import { getRaceList } from '../race/constants';
 
 const defaultTile = {
   x: undefined,
@@ -26,37 +22,6 @@ const defaultTile = {
 const defaultFleet = {
   x: undefined,
   y: undefined,
-};
-
-export const startGame = () => (dispatch) => {
-  dispatch(createBoard(3));
-  dispatch(resetAvailableRaces());
-
-  dispatch(addFleet(1, 1));
-  dispatch(addFleet(1, 1));
-  dispatch(addFleet(1, 1));
-
-  dispatch(addHistory(historyTypes.INIT));
-};
-
-export const resetAvailableRaces = () => ({
-  type: RESET_AVAILABLE_RACES,
-  payload: {
-    races: getRaceList(),
-  },
-});
-
-export const removeAvailableRace = raceName => (dispatch, getState) => {
-  const index = getState().tileReducer.availableRaces.findIndex(race => race.name === raceName);
-  if (index === -1) {
-    throw new Error('tried to remove nonexisting race');
-  }
-  dispatch({
-    type: REMOVE_AVAILABLE_RACE,
-    payload: {
-      index,
-    },
-  });
 };
 
 export const createBoard = size => (dispatch) => {

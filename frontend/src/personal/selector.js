@@ -10,7 +10,6 @@ export const isAnyFleetSelected = state =>
     .some(key => state.playerReducer.selectedFleetsId[key]);
 
 const canFleetReachTile = (fleet, tile) => {
-  // debugger;
   const xDiff = fleet.x - tile.x;
   const yDiff = fleet.y - tile.y;
 
@@ -27,7 +26,6 @@ const canFleetReachTile = (fleet, tile) => {
 };
 
 export const isTileReachable = (state, tileId) => {
-  // debugger;
   const selectedFleetsId = getSelectedFleets(state);
   const tile = getTile(state, tileId);
   if (selectedFleetsId.length === 0) {

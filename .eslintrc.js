@@ -31,6 +31,7 @@ module.exports = {
       "ObjectPattern": { "consistent": true }
     }],
     "no-plusplus": ["off"], // While it shouldn't be used too often, it can be nice to use
+    "function-paren-newline": ["off"], // works like shit with prettier
 
     // This stuff is usually smart, but turned off for this project:
     "jsx-a11y/click-events-have-key-events": ["off"],
