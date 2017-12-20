@@ -1,6 +1,7 @@
 import { ADD_PLAYER, ADD_MONEY, REMOVE_MONEY } from './reducer';
 import { raceMap } from '../race/constants';
 import { newId } from '../util';
+import { fleetType } from '../tile/fleet/fleetTypes';
 
 export const addPlayer = (x, y, raceName, color) => (dispatch) => {
   const race = raceMap[raceName];
@@ -13,6 +14,7 @@ export const addPlayer = (x, y, raceName, color) => (dispatch) => {
       raceName,
       color,
       id,
+      fleet: fleetType,
     },
   });
 

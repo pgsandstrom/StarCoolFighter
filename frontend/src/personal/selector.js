@@ -1,4 +1,5 @@
 import { getTile } from '../tile/selector';
+import { getFleetSpeed } from '../tile/fleet/selector';
 
 export const getSelectedFleets = state =>
   Object.keys(state.personalReducer.selectedFleetsId)
@@ -9,7 +10,7 @@ export const isAnyFleetSelected = state =>
   Object.keys(state.personalReducer.selectedFleetsId)
     .some(key => state.personalReducer.selectedFleetsId[key]);
 
-const canFleetReachTile = (fleet, tile) => {
+const canFleetReachTile = (state, fleet, tile) => {
   const xDiff = fleet.x - tile.x;
   const yDiff = fleet.y - tile.y;
 
@@ -22,7 +23,7 @@ const canFleetReachTile = (fleet, tile) => {
   } else {
     yCost = yDiff;
   }
-  return Math.abs(xCost) + Math.abs(yCost) <= 2;
+  return Math.abs(xCost) + Math.abs(yCost) <= getFleetSpeed(state, fleet.id);
 };
 
 export const isTileReachable = (state, tileId) => {
@@ -32,6 +33,6 @@ export const isTileReachable = (state, tileId) => {
     return false;
   }
 
-  return selectedFleetsId.every(selectedFleet => canFleetReachTile(selectedFleet, tile));
+  return selectedFleetsId.every(selectedFleet => canFleetReachTile(state, selectedFleet, tile));
 };
 
