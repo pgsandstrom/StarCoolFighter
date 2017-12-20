@@ -74,14 +74,6 @@ export const selectHistory = id => ({
   },
 });
 
-export const setTile = (x, y) => ({
-  type: SET_TILE,
-  payload: {
-    x,
-    y,
-  },
-});
-
 export const moveFleet = tileId => (dispatch, getState) => {
   if (isAnyFleetSelected(getState()) === false) {
     return;

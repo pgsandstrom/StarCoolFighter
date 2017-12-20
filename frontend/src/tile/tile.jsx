@@ -20,17 +20,16 @@ const Tile = (props) => {
   let color;
   if (reachable) {
     color = 'purple';
-  } else if (selected) {
-    color = 'red';
-  } else if(props.color) {
+  // } else if (selected) {
+    // color = 'yellow';
+  } else if (props.color) {
     color = props.color;
   } else {
     color = 'blue';
   }
   return (
     <div
-      className="hexagon"
-      style={{ marginTop, marginLeft }}
+      className={`hexagon ${selected && 'selected'}`}      style={{ marginTop, marginLeft }}
       onClick={(e) => { e.stopPropagation(); props.selectTile(tile.id); }}
       onContextMenu={(e) => { e.preventDefault(); props.moveFleet(tile.id); }}
     >

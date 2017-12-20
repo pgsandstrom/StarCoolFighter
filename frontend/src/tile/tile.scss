@@ -19,6 +19,8 @@
       height: 100%;
       visibility: visible;
       transform: rotate(-60deg);
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
 
       .hexagon-content {
         position:absolute;
@@ -26,11 +28,28 @@
         .real-content {
           width: 130px;
           height: 200px;
-          margin-top: -14px;
-          margin-left: 50px;
+          margin-top: -10px;
+          margin-left: 46px;
 
           line-height: 0;
         }
+      }
+    }
+
+  }
+
+  &.selected {
+    //border: 2px solid yellow;
+    box-sizing: content-box;
+    .hexagon-in1 {
+      //border: 2px solid yellow;
+      box-sizing: content-box;
+      .hexagon-in2 {
+        border-left: 4px solid yellow;
+        border-right: 4px solid yellow;
+        //margin-left: 4px;
+        //margin-right: 4px;
+        //box-sizing: content-box;
       }
     }
   }
