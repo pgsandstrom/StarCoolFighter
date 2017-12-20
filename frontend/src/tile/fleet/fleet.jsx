@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { selectFleet, unselectFleet } from '../../personal/action';
 
 import './fleet.scss';
+import { DREADNAUGHT, CRUISER, SOLDIER, TRANSPORTER } from './fleetTypes';
 
 const onClick = (props, e) => {
   e.stopPropagation();
@@ -16,6 +17,26 @@ const onClick = (props, e) => {
   }
 };
 
+const getImg = (fleet) => {
+  switch (fleet.type) {
+    case SOLDIER: {
+      return '/img/soldier.png';
+    }
+    case TRANSPORTER: {
+      return '/img/transporter.png';
+    }
+    case CRUISER: {
+      return '/img/destroyer.png';
+    }
+    case DREADNAUGHT: {
+      return '/img/dreadnaught.png';
+    }
+    default: {
+      throw new Error('unknown ship type');
+    }
+  }
+};
+
 const Fleet = (props) => {
   const classes = classNames({
     fleet: true,
@@ -23,7 +44,7 @@ const Fleet = (props) => {
   });
   return (
     <span className={classes} onClick={e => onClick(props, e)}>
-      <img src="/img/ship.png" />
+      <img src={getImg(props.fleet)} />
     </span>);
 };
 Fleet.propTypes = {

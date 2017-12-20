@@ -6,7 +6,7 @@
 export const SOLDIER = 'SOLDIER';
 export const TRANSPORTER = 'TRANSPORTER';
 export const CRUISER = 'CRUSIER';
-export const BATTLECRUISER = 'BATTLECRUISDER';
+export const DREADNAUGHT = 'BATTLECRUISDER';
 
 
 export const fleetType = {
@@ -25,7 +25,7 @@ export const fleetType = {
     cost: 4,
     speed: 2,
   },
-  [BATTLECRUISER]: {
+  [DREADNAUGHT]: {
     attack: 5,
     cost: 8,
     speed: 1,
