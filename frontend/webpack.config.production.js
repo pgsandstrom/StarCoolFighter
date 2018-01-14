@@ -16,7 +16,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: ['style', 'css', 'sass'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       { test: /\.woff$/, loader: 'url-loader?limit=10000&minetype=application/font-woff' },
       { test: /\.ttf$/, loader: 'file-loader' },
@@ -41,14 +41,7 @@ module.exports = {
   ],
   // This could in theory decrease size, but currently does not work:
   // devtool: 'source-map'
-
-  babel: {
-    // https://babeljs.io/docs/plugins/transform-react-inline-elements/
-    // https://babeljs.io/docs/plugins/transform-react-constant-elements/
-    plugins: ['transform-react-inline-elements', 'transform-react-constant-elements'],
-
-  },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
 };

@@ -1,9 +1,10 @@
 {
-  "name": "nopestradamus-frontend",
+  "name": "starcoolfighter-frontend",
   "version": "0.0.0",
   "description": "",
-  "main": "src/entry.jsx",
+  "main": "src",
   "directories": {},
+  "private": true,
   "scripts": {
     "test": "mocha --compilers scss:./test/null-compiler test/.setup.js test/**/*-test.js*",
     "lint": "node ./node_modules/eslint/bin/eslint.js --ext .js --ext .jsx src",
